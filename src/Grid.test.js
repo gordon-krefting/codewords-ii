@@ -4,11 +4,11 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 
 let gridPattern = `
-	-...-
-	...B-
-	.A.C.
-	-....
-	-...-
+  -...-
+  ...B-
+  .A.C.
+  -....
+  -...-
 `;
 let gridModel = new GridModel(gridPattern);
 
