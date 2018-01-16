@@ -1,0 +1,30 @@
+body {
+  font: 14px "Century Gothic", Futura, sans-serif;
+  margin: 20px;
+}
+
+#game {
+  margin: auto;
+  cursor: default;
+  width: 770px;
+}
+
+.grid {
+  margin-left: 20px;
+  border: 2px solid #000;
+  float: left;
+}
+
+.square {
+  border: 1px solid #999;
+  float: left;
+  height: 34px;
+  width: 34px;
+  position: relative;
+}
+
+.row:after {
+  clear: both;
+  content: "";
+  display: table;
+}

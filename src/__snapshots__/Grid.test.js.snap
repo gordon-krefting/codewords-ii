@@ -1,0 +1,242 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="grid"
+>
+  <div
+    className="row"
+  >
+    <div
+      className="square black-square"
+    />
+    <div
+      className="square white-square"
+    >
+      <div
+        className="label"
+      />
+      <div
+        className="value"
+      />
+    </div>
+    <div
+      className="square white-square"
+    >
+      <div
+        className="label"
+      />
+      <div
+        className="value"
+      />
+    </div>
+    <div
+      className="square white-square"
+    >
+      <div
+        className="label"
+      />
+      <div
+        className="value"
+      />
+    </div>
+    <div
+      className="square black-square"
+    />
+  </div>
+  <div
+    className="row"
+  >
+    <div
+      className="square white-square"
+    >
+      <div
+        className="label"
+      />
+      <div
+        className="value"
+      />
+    </div>
+    <div
+      className="square white-square"
+    >
+      <div
+        className="label"
+      />
+      <div
+        className="value"
+      />
+    </div>
+    <div
+      className="square white-square"
+    >
+      <div
+        className="label"
+      />
+      <div
+        className="value"
+      />
+    </div>
+    <div
+      className="square fixed-square"
+    >
+      <div
+        className="label"
+      />
+      <div
+        className="value"
+      >
+        B
+      </div>
+    </div>
+    <div
+      className="square black-square"
+    />
+  </div>
+  <div
+    className="row"
+  >
+    <div
+      className="square white-square"
+    >
+      <div
+        className="label"
+      />
+      <div
+        className="value"
+      />
+    </div>
+    <div
+      className="square fixed-square"
+    >
+      <div
+        className="label"
+      />
+      <div
+        className="value"
+      >
+        A
+      </div>
+    </div>
+    <div
+      className="square white-square"
+    >
+      <div
+        className="label"
+      />
+      <div
+        className="value"
+      />
+    </div>
+    <div
+      className="square fixed-square"
+    >
+      <div
+        className="label"
+      />
+      <div
+        className="value"
+      >
+        C
+      </div>
+    </div>
+    <div
+      className="square white-square"
+    >
+      <div
+        className="label"
+      />
+      <div
+        className="value"
+      />
+    </div>
+  </div>
+  <div
+    className="row"
+  >
+    <div
+      className="square black-square"
+    />
+    <div
+      className="square white-square"
+    >
+      <div
+        className="label"
+      />
+      <div
+        className="value"
+      />
+    </div>
+    <div
+      className="square white-square"
+    >
+      <div
+        className="label"
+      />
+      <div
+        className="value"
+      />
+    </div>
+    <div
+      className="square white-square"
+    >
+      <div
+        className="label"
+      />
+      <div
+        className="value"
+      />
+    </div>
+    <div
+      className="square white-square"
+    >
+      <div
+        className="label"
+      />
+      <div
+        className="value"
+      />
+    </div>
+  </div>
+  <div
+    className="row"
+  >
+    <div
+      className="square black-square"
+    />
+    <div
+      className="square white-square"
+    >
+      <div
+        className="label"
+      />
+      <div
+        className="value"
+      />
+    </div>
+    <div
+      className="square white-square"
+    >
+      <div
+        className="label"
+      />
+      <div
+        className="value"
+      />
+    </div>
+    <div
+      className="square white-square"
+    >
+      <div
+        className="label"
+      />
+      <div
+        className="value"
+      />
+    </div>
+    <div
+      className="square black-square"
+    />
+  </div>
+</div>
+`;
