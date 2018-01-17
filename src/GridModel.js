@@ -23,7 +23,12 @@ export class GridModel {
     }
   }
 
+  getCell(coords) {
+    return this.cells[coords.row][coords.column];
+  }
 }
+
+
 
 
 export class WhiteCell {
