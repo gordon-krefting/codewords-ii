@@ -40,6 +40,10 @@ body {
   background-color: #ffff00;
 }
 
+.selected-word {
+  background-color: #aaaaff;
+}
+
 .black-square {
   background-color: #000000;
 }

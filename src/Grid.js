@@ -1,16 +1,19 @@
-import React from 'react';
-import _ from 'lodash';
+import React from 'react'
+import _ from 'lodash'
 
 import {FixedCell, WhiteCell, BlackCell} from './GridModel.js';
-import Coords from './Coords.js'
 
 export default class Grid extends React.Component {
   constructor(props) {
     super(props);
 
+    var firstCell = this.props.gridModel.getFirstSelectableCell();
+
     this.state = {
-      currentSelection: this.props.gridModel.getFirstSelectableCell(),
-    };
+      currentSelection: firstCell,
+      currentDirection: "across",
+      //currentWord: this.props.gridModel.getWord(firstCell),
+    }
   }
 
 	render() {
@@ -20,13 +23,13 @@ export default class Grid extends React.Component {
 		for (let i=0; i<cells.length;i++) {
       var p = [];
       for (let j=0; j<cells[i].length;j++) {
-        let coords = new Coords(i,j);
+        //let coords = new Coords(i,j);
       	let cell = cells[i][j];
       	if (cell instanceof BlackCell) {
       		p.push(
 	          <div 
               className="square black-square"
-              onClick={() => this.handleClick(coords)}
+              onClick={() => this.handleClick(cell)}
               key={`grd-${i}-${j}`}
             />
 					);
@@ -34,16 +37,16 @@ export default class Grid extends React.Component {
       		p.push(
       			<FixedSquare
               value={cell.value}
-              onClick={() => this.handleClick(coords)}
+              onClick={() => this.handleClick(cell)}
               key={`grd-${i}-${j}`}
             />
       		);
       	} else if (cell instanceof WhiteCell) {
       		p.push(
       			<WhiteSquare
-              onClick={() => this.handleClick(coords)}
-              coords={coords}
-              isSelected={_.isEqual(coords, this.state.currentSelection)}
+              onClick={() => this.handleClick(cell)}
+              //coords={coords}
+              isSelected={_.isEqual(cell, this.state.currentSelection)}
               gridModel={this.props.gridModel}
               key={`grd-${i}-${j}`}
             />
@@ -55,11 +58,11 @@ export default class Grid extends React.Component {
 		return (<div className="grid">{o}</div>);
 	}
 
-  handleClick(coords) {
-    console.log(this.props.gridModel.getCell(coords));
-    if (this.props.gridModel.getCell(coords).selectable) {
+  handleClick(cell) {
+    console.log(cell);
+    if (cell.selectable) {
       this.setState({
-        currentSelection: coords,
+        currentSelection: cell,
       });
     }
   }

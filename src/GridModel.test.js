@@ -1,7 +1,6 @@
-import {GridModel} from './GridModel.js';
-import Coords from './Coords.js';
+import {GridModel, WhiteCell} from './GridModel.js';
 
-let typicalGridPattern = `
+let simpleGridPattern = `
   -...-
   ...B-
   .A.C.
@@ -11,7 +10,7 @@ let typicalGridPattern = `
 
 
 test('parsing a good grid', () => {
-  let gridModel = new GridModel(typicalGridPattern);
+  let gridModel = new GridModel(simpleGridPattern);
 });
 
 test('parsing a bad grid', () => {
@@ -20,9 +19,10 @@ test('parsing a bad grid', () => {
   }).toThrow();
 });
 
+// TODO only pick a valid across
 test('getting the first selectable cell should work on a good grid', () => {
-  let gridModel = new GridModel(typicalGridPattern);
-  expect(gridModel.getFirstSelectableCell()).toEqual(new Coords(0,1));
+  let gridModel = new GridModel(simpleGridPattern);
+  expect(gridModel.getFirstSelectableCell()).toEqual(new WhiteCell(0,1));
 });
 
 test('getting the first selectable cell should not work on a bad grid', () => {
@@ -31,4 +31,22 @@ test('getting the first selectable cell should not work on a bad grid', () => {
     gridModel.getFirstSelectableCell();
   }).toThrow();
 });
+
+let navTestGridPattern =`
+.O.O.H.NE---S.S
+A-A-O-B-CA.O.S.
+.O.N.L.TH-A-N-R
+I-L-K-E-IM.T.T.
+.U.M.R--D-L-T-N
+U-A-T---NE.N...
+....-.O.A-U--O.
+-L-.O.-H-ATTEND
+S.A.-.R.S.--P-A
+-R-E-E-S-..R.T.
+.........-I-S-D
+E-E-E-M-A-.C.U.
+.A.D.-.E.A.-D-E
+I-O-R-E-E-.N.M.
+.D.E.A.I.E----M
+`;
 
