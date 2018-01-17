@@ -3,6 +3,7 @@ export default class Coords {
     this.row = row;
     this.column = column;
   }
+
   toString() {
     return(`(${this.row},${this.column})`);
   }

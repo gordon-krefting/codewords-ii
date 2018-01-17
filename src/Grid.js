@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 
 import {FixedCell, WhiteCell, BlackCell} from './GridModel.js';
 import Coords from './Coords.js'
@@ -6,7 +7,10 @@ import Coords from './Coords.js'
 export default class Grid extends React.Component {
   constructor(props) {
     super(props);
-    this.currentSelection = this.props.gridModel.getFirstSelectableCell();
+
+    this.state = {
+      currentSelection: this.props.gridModel.getFirstSelectableCell(),
+    };
   }
 
 	render() {
@@ -38,6 +42,9 @@ export default class Grid extends React.Component {
       		p.push(
       			<WhiteSquare
               onClick={() => this.handleClick(coords)}
+              coords={coords}
+              isSelected={_.isEqual(coords, this.state.currentSelection)}
+              gridModel={this.props.gridModel}
               key={`grd-${i}-${j}`}
             />
       		);
@@ -49,7 +56,9 @@ export default class Grid extends React.Component {
 	}
 
   handleClick(coords) {
-    alert(this.props.gridModel.getCell(coords).selectable);
+    this.setState({
+      currentSelection: coords,
+    });
   }
 
 }
@@ -67,8 +76,9 @@ class FixedSquare extends React.Component {
 
 class WhiteSquare extends React.Component {
 	render() {
-		return (
-      <div className="square white-square">
+    let extraClass = this.props.isSelected ? " selected" : "";
+    return (
+      <div className={"square white-square" + extraClass}>
         <div className="label">{this.props.label}</div>
         <div className="value" onClick={this.props.onClick}></div>
       </div>

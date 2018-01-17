@@ -12,7 +12,7 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
     />
     <div
-      className="square white-square"
+      className="square white-square selected"
     >
       <div
         className="label"

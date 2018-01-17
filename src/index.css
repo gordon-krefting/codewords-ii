@@ -36,6 +36,10 @@ body {
   padding-top: 30%;
 }
 
+.selected {
+  background-color: #ffff00;
+}
+
 .black-square {
   background-color: #000000;
 }
