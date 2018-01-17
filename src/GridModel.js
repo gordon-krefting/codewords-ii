@@ -1,9 +1,10 @@
 /* */
+import Coords from './Coords.js';
 
 export class GridModel {
   
   constructor(gridPattern) {
-
+    this.gridPattern = gridPattern;
     this.cells = [];
 
     for (let rowPattern of gridPattern.trim().split("\n")) {
@@ -26,13 +27,30 @@ export class GridModel {
   getCell(coords) {
     return this.cells[coords.row][coords.column];
   }
+
+  getFirstSelectableCell() {
+    for (let i = 0; i < this.cells[0].length; i++) {
+      if (this.cells[0][i].selectable) return new Coords(0,i);
+    }
+    throw new Error("First row doesn't have any selectable cells:" + this.gridPattern);
+  }
+
 }
 
 
+/*
+ * Base class for cells
+ */
+class Cell {
 
+}
 
-export class WhiteCell {
+export class WhiteCell extends Cell {
+  selectable = true;
+  clickable  = true;
+
   constructor(label = '', shaded=false) {
+    super();
     this.label = label;
     this.shaded = shaded;
   }
@@ -41,18 +59,25 @@ export class WhiteCell {
   }
 }
 
-export class BlackCell {
+export class BlackCell extends Cell {
+  selectable = false;
+  clickable  = false;
   toString() {
     return "X";
   }
 }
 
-export class FixedCell {
+export class FixedCell extends Cell {
+  clickable  = true;
+  selectable = false;
+
   constructor(value, label = '', shaded=false) {
+    super();
     this.value = value;
     this.label = label;
     this.shaded = shaded;
   }
+
   toString() {
     return this.value;
   }

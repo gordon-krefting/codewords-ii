@@ -9,7 +9,7 @@ export default class Game extends React.Component {
   }
   render() {
     let gridPattern = `
-      -...-
+      -.N.-
       ....-
       ..A..
       -....

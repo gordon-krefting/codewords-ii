@@ -4,6 +4,11 @@ import {FixedCell, WhiteCell, BlackCell} from './GridModel.js';
 import Coords from './Coords.js'
 
 export default class Grid extends React.Component {
+  constructor(props) {
+    super(props);
+    this.currentSelection = this.props.gridModel.getFirstSelectableCell();
+  }
+
 	render() {
 		var o = [];
 		let cells = this.props.gridModel.cells;
@@ -44,11 +49,10 @@ export default class Grid extends React.Component {
 	}
 
   handleClick(coords) {
-    alert(this.props.gridModel.getCell(coords));
+    alert(this.props.gridModel.getCell(coords).selectable);
   }
 
 }
-
 
 class FixedSquare extends React.Component {
 	render() {
