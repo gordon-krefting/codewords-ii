@@ -56,9 +56,12 @@ export default class Grid extends React.Component {
 	}
 
   handleClick(coords) {
-    this.setState({
-      currentSelection: coords,
-    });
+    console.log(this.props.gridModel.getCell(coords));
+    if (this.props.gridModel.getCell(coords).selectable) {
+      this.setState({
+        currentSelection: coords,
+      });
+    }
   }
 
 }
