@@ -8,13 +8,13 @@ export default class Game extends React.Component {
     console.log("Constructing...");
   }
   render() {
-  	let gridPattern = `
+    let gridPattern = `
       -...-
       ....-
       ..A..
       -....
       -...-`;
-		let gridModel = new GridModel(gridPattern);
+    let gridModel = new GridModel(gridPattern);
     return (
       <Grid gridModel={gridModel}/>
     );
