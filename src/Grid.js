@@ -74,7 +74,7 @@ export default class Grid extends React.Component {
       if (this.props.letterEntryHandler(key.toUpperCase(), cell.row, cell.column)) {
         nextCell = this.state.currentWord.nextCell(cell);
       }
-    } else if (key >= 'A' && key <= 'Z') {
+    } else if ((key >= 'A' && key <= 'Z') || key === " ") {
       if (this.props.letterEntryHandler(key, cell.row, cell.column)) {
         nextCell = this.state.currentWord.nextCell(cell);
       }
@@ -94,6 +94,13 @@ export default class Grid extends React.Component {
     } else if (["ArrowLeft", "ArrowUp", "ArrowRight", "ArrowDown"].includes(event.code)) {
       event.preventDefault();
       this.handleArrow(event);
+    } else if ("Backspace" === event.code) {
+      let cell = this.state.currentSelection;
+      if (this.props.letterEntryHandler(" ", cell.row, cell.column)) {
+        this.setState({
+          currentSelection: this.state.currentWord.previousCell(cell),
+        });
+      }
     }
 
   }

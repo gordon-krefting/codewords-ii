@@ -295,7 +295,3 @@ class Word {
     return cell;
   }
 }
-
-
-
-
