@@ -14,7 +14,7 @@ let gridModel = new GridModel(gridPattern);
 
 test('renders correctly', () => {
   const tree = renderer
-    .create(<Grid gridModel={gridModel}/>)
+    .create(<Grid gridModel={gridModel} entryLookup={() => {}}/>)
     .toJSON();
   expect(tree).toMatchSnapshot();
 });

@@ -24,7 +24,6 @@ export default class Grid extends React.Component {
 		for (let i=0; i<cells.length;i++) {
       var p = [];
       for (let j=0; j<cells[i].length;j++) {
-        //let coords = new Coords(i,j);
       	let cell = cells[i][j];
       	if (cell instanceof BlackCell) {
       		p.push(
@@ -44,9 +43,10 @@ export default class Grid extends React.Component {
             />
       		);
       	} else if (cell instanceof WhiteCell) {
-      		p.push(
+          p.push(
       			<WhiteSquare
               onClick={() => this.handleClick(cell)}
+              value={this.props.entryLookup(i,j)}
               isSelected={_.isEqual(cell, this.state.currentSelection)}
               isInCurrentWord={this.state.currentWord.contains(cell)}
               gridModel={this.props.gridModel}
@@ -59,6 +59,18 @@ export default class Grid extends React.Component {
     }
 		return (<div className="grid">{o}</div>);
 	}
+
+  componentDidMount() {
+    window.addEventListener("keydown", (event) => this.handleKeyDown(event.key));
+  }
+
+  handleKeyDown(key) {
+    let cell = this.state.currentSelection;
+    console.log(key);
+    if (key >= 'a' && key <= 'z') {
+      this.props.letterEntryHandler(key.toUpperCase(), cell.row, cell.column);
+    }
+  }
 
   handleClick(cell) {
     console.log(cell);
@@ -110,7 +122,7 @@ class WhiteSquare extends React.Component {
     return (
       <div className={"square white-square" + extraClass}>
         <div className="label">{this.props.label}</div>
-        <div className="value" onClick={this.props.onClick}></div>
+        <div className="value" onClick={this.props.onClick}>{this.props.value}</div>
       </div>
     );
 	}
