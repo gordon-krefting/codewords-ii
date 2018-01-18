@@ -9,13 +9,13 @@ export default class Game extends React.Component {
   }
   render() {
     let gridPattern = `
-.O.O.H.NE---S.S
+.O.O.H.NE---S-S
 A-A-O-B-CA.O.S.
 .O.N.L.TH-A-N-R
 I-L-K-E-IM.T.T.
 .U.M.R--D-L-T-N
 U-A-T---NE.N...
-....-.O.A-U--O.
+....-.O.A-U--O-
 -L-.O.-H-ATTEND
 S.A.-.R.S.--P-A
 -R-E-E-S-..R.T.
@@ -23,7 +23,7 @@ S.A.-.R.S.--P-A
 E-E-E-M-A-.C.U.
 .A.D.-.E.A.-D-E
 I-O-R-E-E-.N.M.
-.D.E.A.I.E----M
+.D...A.I.E----M
 `;
     let gridModel = new GridModel(gridPattern);
     return (

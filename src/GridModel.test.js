@@ -8,9 +8,10 @@ let simpleGridPattern = `
   -...-
 `;
 
-
 test('parsing a good grid', () => {
   let gridModel = new GridModel(simpleGridPattern);
+  //console.log(gridModel.acrossWords.map(word => word.toString()).join('\n'));
+  //console.log(gridModel.downWords.map(word => word.toString()).join('\n'));
 });
 
 test('parsing a bad grid', () => {
@@ -33,13 +34,13 @@ test('getting the first selectable cell should not work on a bad grid', () => {
 });
 
 let navTestGridPattern =`
-.O.O.H.NE---S.S
+.O.O.H.NE---S-S
 A-A-O-B-CA.O.S.
 .O.N.L.TH-A-N-R
 I-L-K-E-IM.T.T.
 .U.M.R--D-L-T-N
 U-A-T---NE.N...
-....-.O.A-U--O.
+....-.O.A-U--O-
 -L-.O.-H-ATTEND
 S.A.-.R.S.--P-A
 -R-E-E-S-..R.T.
@@ -50,3 +51,8 @@ I-O-R-E-E-.N.M.
 .D.E.A.I.E----M
 `;
 
+test('parsing a complex grid', () => {
+  let gridModel = new GridModel(navTestGridPattern);
+  //console.log(gridModel.acrossWords.map(word => word.toString()).join('\n'));
+  //console.log(gridModel.downWords.map(word => word.toString()).join('\n'));
+});

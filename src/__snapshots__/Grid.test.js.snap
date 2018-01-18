@@ -23,7 +23,7 @@ exports[`renders correctly 1`] = `
       />
     </div>
     <div
-      className="square white-square"
+      className="square white-square selected-word"
     >
       <div
         className="label"
@@ -34,7 +34,7 @@ exports[`renders correctly 1`] = `
       />
     </div>
     <div
-      className="square white-square"
+      className="square white-square selected-word"
     >
       <div
         className="label"

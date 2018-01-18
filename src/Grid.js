@@ -8,11 +8,12 @@ export default class Grid extends React.Component {
     super(props);
 
     var firstCell = this.props.gridModel.getFirstSelectableCell();
+    var direction = "across";
 
     this.state = {
       currentSelection: firstCell,
-      currentDirection: "across",
-      //currentWord: this.props.gridModel.getWord(firstCell),
+      currentDirection: direction,
+      currentWord:      this.props.gridModel.getWord(firstCell, direction),
     }
   }
 
@@ -37,6 +38,7 @@ export default class Grid extends React.Component {
       		p.push(
       			<FixedSquare
               value={cell.value}
+              isInCurrentWord={this.state.currentWord.contains(cell)}
               onClick={() => this.handleClick(cell)}
               key={`grd-${i}-${j}`}
             />
@@ -45,8 +47,8 @@ export default class Grid extends React.Component {
       		p.push(
       			<WhiteSquare
               onClick={() => this.handleClick(cell)}
-              //coords={coords}
               isSelected={_.isEqual(cell, this.state.currentSelection)}
+              isInCurrentWord={this.state.currentWord.contains(cell)}
               gridModel={this.props.gridModel}
               key={`grd-${i}-${j}`}
             />
@@ -60,9 +62,28 @@ export default class Grid extends React.Component {
 
   handleClick(cell) {
     console.log(cell);
-    if (cell.selectable) {
+    if (cell.selectable && this.state.currentSelection === cell) {
+      let newDirection = this.state.currentDirection === "down" ? "across" : "down";
+      let word = this.props.gridModel.getWord(cell, newDirection);
+      if (word !== undefined) {
+        this.setState({
+          currentSelection: cell,
+          currentWord     : word,
+          currentDirection: newDirection,
+        });
+      }
+    } else if (cell.selectable) {
+      let direction = this.state.currentDirection;
+      let word = this.props.gridModel.getWord(cell, direction);
+      if (word === undefined) {
+        direction = direction === "down" ? "across" : "down";
+        word = this.props.gridModel.getWord(cell, direction);
+      }
+
       this.setState({
         currentSelection: cell,
+        currentWord     : word,
+        currentDirection: direction,
       });
     }
   }
@@ -71,8 +92,9 @@ export default class Grid extends React.Component {
 
 class FixedSquare extends React.Component {
 	render() {
+    let extraClass = this.props.isInCurrentWord ? " selected-word" : "";
 		return (
-      <div className="square fixed-square">
+      <div className={"square fixed-square" + extraClass}>
         <div className="label">{this.props.label}</div>
         <div className="value" onClick={this.props.onClick}>{this.props.value}</div>
       </div>
@@ -82,7 +104,9 @@ class FixedSquare extends React.Component {
 
 class WhiteSquare extends React.Component {
 	render() {
-    let extraClass = this.props.isSelected ? " selected" : "";
+    let extraClass =
+      this.props.isSelected ? " selected" :
+      this.props.isInCurrentWord ? " selected-word" : "";
     return (
       <div className={"square white-square" + extraClass}>
         <div className="label">{this.props.label}</div>
