@@ -20,7 +20,6 @@ I-O-R-E-E-.N.M.
 .D...A.I.E----M
 `;
 
-
 export default class Game extends React.Component {
   constructor(props) {
     super(props);
@@ -56,12 +55,14 @@ export default class Game extends React.Component {
 
   // this name is ick
   letterEntryHandler(letter, row, column) {
-    console.log(`Letter: ${letter} entered into (${row}, ${column})`);
+    //console.log(`Letter: ${letter} entered into (${row}, ${column})`);
     this.entryGrid[row][column] = letter;
     // So.... this is lame. I'm pretty sure I don't understand state tracking!
-    // Or perhaps react isn't so good when your data structure is a 2d array!
+    // Or perhaps react isn't so good when your data structure is a 2d array.
+    // Anyway, this triggers a (possibly inefficient) re-render of everything
     this.setState({
     });
+    return true;
   }
 
   entryLookup(row, column) {

@@ -36,6 +36,10 @@ body {
   padding-top: 30%;
 }
 
+.fixed-square > .value {
+  color: #999999;
+}
+
 .selected {
   background-color: #ffdf00;
 }

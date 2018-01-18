@@ -61,19 +61,120 @@ export default class Grid extends React.Component {
 	}
 
   componentDidMount() {
-    window.addEventListener("keydown", (event) => this.handleKeyDown(event.key));
+    window.addEventListener("keydown", (event) => this.handleKeyDown(event));
+    window.addEventListener("keypress", (event) => this.handleKeyPress(event));
   }
 
-  handleKeyDown(key) {
+  handleKeyPress(event) {
+    let key = event.key;
     let cell = this.state.currentSelection;
-    console.log(key);
+    let nextCell = cell;
+
     if (key >= 'a' && key <= 'z') {
-      this.props.letterEntryHandler(key.toUpperCase(), cell.row, cell.column);
+      if (this.props.letterEntryHandler(key.toUpperCase(), cell.row, cell.column)) {
+        nextCell = this.state.currentWord.nextCell(cell);
+      }
+    } else if (key >= 'A' && key <= 'Z') {
+      if (this.props.letterEntryHandler(key, cell.row, cell.column)) {
+        nextCell = this.state.currentWord.nextCell(cell);
+      }
     }
+    this.setState({
+      currentSelection: nextCell,
+    });
+  }
+
+  handleKeyDown(event) {
+    console.log("keydown");
+    console.log(event);
+
+    if ("Tab" === event.code) {
+      event.preventDefault();
+      this.handleTab(event);
+    } else if (["ArrowLeft", "ArrowUp", "ArrowRight", "ArrowDown"].includes(event.code)) {
+      event.preventDefault();
+      this.handleArrow(event);
+    }
+
+  }
+
+  handleTab(event) {
+    let newSelection;
+    let newWord;
+    let newDirection = this.state.currentDirection;
+
+    let firstChoice;  // Next/prev word in the same direction
+    let secondChoice; // Switch to the other direcetion
+
+    if (this.state.currentDirection === "across" && event.shiftKey) {
+      firstChoice  = this.props.gridModel.getPreviousAcross(this.state.currentSelection);
+      secondChoice = this.props.gridModel.getLastDown().firstEditableCell();
+    } else if (this.state.currentDirection === "across") {
+      firstChoice  = this.props.gridModel.getNextAcross(this.state.currentSelection);
+      secondChoice = this.props.gridModel.getFirstDown().firstEditableCell();
+    } else if (this.state.currentDirection === "down" && event.shiftKey) {
+      firstChoice  = this.props.gridModel.getPreviousDown(this.state.currentSelection);
+      secondChoice = this.props.gridModel.getLastAcross().firstEditableCell();
+    } else if (this.state.currentDirection === "down") {
+      firstChoice  = this.props.gridModel.getNextDown(this.state.currentSelection);
+      secondChoice = this.props.gridModel.getFirstAcross().firstEditableCell();
+    }
+
+    if (firstChoice !== undefined) {
+      newSelection = firstChoice;
+      newDirection = this.state.currentDirection;
+    } else {
+      newSelection = secondChoice;
+      newDirection = this.state.currentDirection === "across" ? "down" : "across";
+    }
+    newWord      = this.props.gridModel.getWord(newSelection, newDirection);
+
+    this.setState({
+      currentSelection: newSelection,
+      currentWord     : newWord,
+      currentDirection: newDirection,
+    });
+  }
+
+  handleArrow(event) {
+    let newSelection = this.state.currentSelection;
+    let newWord      = this.state.currentWord;
+    let newDirection = this.state.currentDirection;
+
+    if ((this.state.currentDirection === "across" && "ArrowRight" === event.code) ||
+        (this.state.currentDirection === "down" && "ArrowDown" === event.code)) {
+      newSelection = this.state.currentWord.nextCell(this.state.currentSelection);
+
+    } else if ((this.state.currentDirection === "across" && "ArrowLeft" === event.code) ||
+        (this.state.currentDirection === "down" && "ArrowUp" === event.code)) {
+      newSelection = this.state.currentWord.previousCell(this.state.currentSelection);
+
+    } else {
+      let targetDirection = this.state.currentDirection === "across" ? "down" : "across";
+      let targetWord = this.props.gridModel.getWord(this.state.currentSelection, targetDirection);
+      if (targetWord !== undefined) {
+        let editableCell;
+        if (["ArrowRight", "ArrowDown"].includes(event.code)) {
+          editableCell = targetWord.nextCell(this.state.currentSelection);
+        } else {
+          editableCell = targetWord.previousCell(this.state.currentSelection);
+        }
+        if (editableCell !== undefined && editableCell !== this.state.currentSelection){
+          newWord = targetWord;
+          newDirection = targetDirection;
+        }
+      }
+
+    }
+
+    this.setState({
+      currentSelection: newSelection,
+      currentWord     : newWord,
+      currentDirection: newDirection,
+    });
   }
 
   handleClick(cell) {
-    console.log(cell);
     if (cell.selectable && this.state.currentSelection === cell) {
       let newDirection = this.state.currentDirection === "down" ? "across" : "down";
       let word = this.props.gridModel.getWord(cell, newDirection);

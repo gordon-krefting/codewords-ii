@@ -116,20 +116,69 @@ export class GridModel {
     }
   }
 
-  getNextAcrossWord(cell) {
-
+  
+  getFirstAcross() {
+    return this.acrossWords[0];
   }
 
-  getPreviousAcrossWord(cell) {
-
+  getLastAcross() {
+    return this.acrossWords.slice(-1)[0];
   }
 
-  getNextDownWord(cell) {
-    
+  /*
+   * Returns the first active cell in the next across word, undef if we're at the last
+   */
+  getNextAcross(cell) {
+    let index = this.acrossWords.indexOf(this.getWord(cell, "across"));
+    if (index === this.acrossWords.length-1) {
+      return undefined;
+    } else {
+      return this.acrossWords[index+1].firstEditableCell();
+    }
   }
 
-  getPreviousDownWord(cell) {
-    
+  /*
+   * Returns the first active cell in the previous across word, undef if we're at the last
+   */
+  getPreviousAcross(cell) {
+    let index = this.acrossWords.indexOf(this.getWord(cell, "across"));
+    if (index === 0) {
+      return undefined;
+    } else {
+      return this.acrossWords[index-1].firstEditableCell();
+    }
+  }
+
+  getFirstDown() {
+    return this.downWords[0];
+  }
+
+  getLastDown() {
+    return this.downWords.slice(-1)[0];
+  }
+
+  /*
+   * Returns the first active cell in the next down word, undef if we're at the last
+   */
+  getNextDown(cell) {
+    let index = this.downWords.indexOf(this.getWord(cell, "down"));
+    if (index === this.downWords.length-1) {
+      return undefined;
+    } else {
+      return this.downWords[index+1].firstEditableCell();
+    }
+  }
+
+  /*
+   * Returns the first active cell in the previous down word, undef if we're at the last
+   */
+  getPreviousDown(cell) {
+    let index = this.downWords.indexOf(this.getWord(cell, "down"));
+    if (index === 0) {
+      return undefined;
+    } else {
+      return this.downWords[index-1].firstEditableCell();
+    }
   }
 
 }
@@ -202,7 +251,7 @@ class Word {
   }
 
   isValidWord() {
-    return this.cells.length > 1;
+    return this.cells.length > 1 && this.firstEditableCell() !== undefined;
   }
 
   contains(cell) {
@@ -213,11 +262,37 @@ class Word {
     return this.cells.map(cell => cell.toChar()).join('');
   }
 
-  getNextCell(cell) {
-
+  firstEditableCell() {
+    let index = 0;
+    while (index < this.cells.length-1) {
+      if (this.cells[index].selectable) {
+        return this.cells[index];
+      }
+      index++;
+    }
+    return undefined;
   }
-  getPreviousCell(cell) {
 
+  nextCell(cell) {
+    let index = this.cells.indexOf(cell);
+    while (index < this.cells.length-1) {
+      index++;
+      if (this.cells[index].selectable) {
+        return this.cells[index];
+      }
+    }
+    return cell;
+  }
+
+  previousCell(cell) {
+    let index = this.cells.indexOf(cell);
+    while (index > 0) {
+      index--;
+      if (this.cells[index].selectable) {
+        return this.cells[index];
+      }
+    }
+    return cell;
   }
 }
 
