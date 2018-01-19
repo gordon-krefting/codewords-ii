@@ -1,7 +1,14 @@
+/**
+ * This is the bit that understands how the games works, coordinating state between 
+ * different components.
+ */
 import React from 'react';
 import Grid from './Grid.js';
 import {GridModel} from './GridModel.js';
 
+/*
+ * Sometime, we'll make this into a gamefile of some sort.
+ */
 let gridPattern = `
 .O.O.H.NE---S-S
 A-A-O-B-CA.O.S.

@@ -1,6 +1,7 @@
-/* */
-//import Coords from './Coords.js';
-
+/**
+ * The data model underlying a grid component. Parses an input file, then provides a bunch
+ * of utility methods.
+ */
 export class GridModel {
   
   constructor(gridPattern) {
@@ -232,7 +233,6 @@ export class FixedCell extends Cell {
 }
 
 /* just an array of cells with some helpers */
-/* hmm */
 class Word {
   cells = [];
   // Only useful for testing

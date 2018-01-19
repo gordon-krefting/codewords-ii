@@ -1,3 +1,11 @@
+/**
+ * A game component that models a crossword-style letter entry grid. Features
+ *  - White squares! Type letters into them!
+ *  - Back squares!
+ *  - 'fixed squares' - that have uneditable letters in them
+ *  - Navigation with tabs and arrows
+ *  - Clear squares with space or backspace
+ */
 import React from 'react'
 import _ from 'lodash'
 
